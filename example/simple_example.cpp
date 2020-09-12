@@ -14,10 +14,12 @@ DECLARE_ENUM(LogLevel,  // enum class LogLevel
 
 int main() {
   // serialize
-  std::cout << enum_to_string(LogLevel, Debug) << std::endl;
+  LogLevel a = LogLevel::Critical;
+
+  std::cout << enum_to_string(LogLevel, a) << std::endl;
 
   // deserialize
-  switch (string_to_enum(LogLevel, "INFO")) {
+  switch (string_to_enum(LogLevel, "Notice")) {
     case LogLevel::Alert: {
       std::cout << "ALERT" << std::endl;
     } break;

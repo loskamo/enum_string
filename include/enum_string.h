@@ -1,3 +1,5 @@
+// enum_string.h
+
 #pragma once
 
 #define DECLARE_ENUM(T, values...)                                     \
@@ -9,7 +11,7 @@
       static_cast<__underlying_type(T)>(T::MAX));
 
 #define enum_to_string(T, value) \
-  (T##_tokens[static_cast<__underlying_type(T)>(T::value)])
+  (T##_tokens[static_cast<__underlying_type(T)>(value)])
 
 static const char* const* tokenize_enum_string(char* base, int length,
                                                const char* tokens[], int size) {
