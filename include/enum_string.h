@@ -1,11 +1,11 @@
 #pragma once
 
-#define DECLARE_ENUM(T, values...)                                          \
-  enum class T { values, MAX };                                             \
-  static char enum_##T##_base[sizeof(#values)] = #values;                   \
-  static const char* T##_tokens[static_cast<__underlying_type(T)>(T::MAX)]; \
-  auto T##_tmp_ptr = tokenize_enum_string(                                  \
-      const_cast<char*>(enum_##T##_base), sizeof(#values), T##_tokens,      \
+#define DECLARE_ENUM(T, values...)                                     \
+  enum class T { values, MAX };                                        \
+  char enum_##T##_base[sizeof(#values)] = #values;                     \
+  const char* T##_tokens[static_cast<__underlying_type(T)>(T::MAX)];   \
+  const char* const* T##_tmp_ptr = tokenize_enum_string(               \
+      const_cast<char*>(enum_##T##_base), sizeof(#values), T##_tokens, \
       static_cast<__underlying_type(T)>(T::MAX));
 
 #define enum_to_string(T, value) \
@@ -61,4 +61,3 @@ static int string_to_enum_int(const char* const tokens[], int max,
 #define string_to_enum(T, value)     \
   static_cast<T>(string_to_enum_int( \
       T##_tokens, static_cast<__underlying_type(T)>(T::MAX), value))
-
